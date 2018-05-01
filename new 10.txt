@@ -1,0 +1,78 @@
+>>> import sys
+...:from scapy.all import *
+...:\
+...:print "Field Values of packet sent"
+...:p=IP(dst="syn-harder.seclab-bonn.de",id=1111,ttl=99)/TCP(sport=RandShort(),dport=1337,seq=12345,ack=1000,window=1000,flags="S")/"HaX0r SVP"
+...:ls(p)
+...:print "Sending Packets in 0.3 second intervals for timeout of 4 sec"
+...:ans,unans=srloop(p,inter=0.3,retry=2,timeout=4)
+...:print "Summary of answered & unanswered packets"
+...:ans.summary()
+...:unans.summary()
+...:print "source port flags in response"
+...:#for s,r in ans:
+...:# print r.sprintf("%TCP.sport% \t %TCP.flags%")
+...:ans.make_table(lambda(s,r): (s.dst, s.dport, r.sprintf("%IP.id% \t %IP.ttl% \t %TCP.flags%")))
+...:
+Field Values of packet sent
+version    : BitField (4 bits)                   = 4               (4)
+ihl        : BitField (4 bits)                   = None            (None)
+tos        : XByteField                          = 0               (0)
+len        : ShortField                          = None            (None)
+id         : ShortField                          = 1111            (1)
+flags      : FlagsField (3 bits)                 = <Flag 0 ()>     (<Flag 0 ()>)
+frag       : BitField (13 bits)                  = 0               (0)
+ttl        : ByteField                           = 99              (64)
+proto      : ByteEnumField                       = 6               (0)
+chksum     : XShortField                         = None            (None)
+src        : SourceIPField                       = '192.168.144.104' (None)
+dst        : DestIPField                         = Net('syn-harder.seclab-bonn.de') (None)
+options    : PacketListField                     = []              ([])
+--
+sport      : ShortEnumField                      = <RandShort>     (20)
+dport      : ShortEnumField                      = 1337            (80)
+seq        : IntField                            = 12345           (0)
+ack        : IntField                            = 1000            (0)
+dataofs    : BitField (4 bits)                   = None            (None)
+reserved   : BitField (3 bits)                   = 0               (0)
+flags      : FlagsField (9 bits)                 = <Flag 2 (S)>    (<Flag 2 (S)>)
+window     : ShortField                          = 1000            (8192)
+chksum     : XShortField                         = None            (None)
+urgptr     : ShortField                          = 0               (0)
+options    : TCPOptionsField                     = []              ([])
+--
+load       : StrField                            = 'HaX0r SVP'     ('')
+Sending Packets in 0.3 second intervals for timeout of 4 sec
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:29297 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:55877 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:8652 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:32222 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:6446 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:6828 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:23937 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:23551 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:47500 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:1482 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:19484 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:56015 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:12506 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:49257 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:64334 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:11920 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:46250 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:39503 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:29434 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:17604 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:2973 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:51072 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:9547 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:4653 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:12471 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:34786 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:60379 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:9007 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:1840 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:33501 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:51897 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:20039 RA / Padding
+RECV 1: IP / TCP 37.120.163.171:1337 > 192.168.144.104:30204 RA / Padding
